@@ -28,6 +28,7 @@ define ohmyzsh::install(
   Boolean $set_sh              = false,
   Boolean $disable_auto_update = false,
   Boolean $override_template   = false,
+  String  $custom_home_dir     = undef,
 ) {
 
   include ohmyzsh
@@ -44,10 +45,14 @@ define ohmyzsh::install(
     }
   }
 
-  if $name == 'root' {
-    $home = '/root'
+  if $custom_home_dir {
+    $home = $custom_home_dir
   } else {
-    $home = "${ohmyzsh::home}/${name}"
+    if $name == 'root' {
+      $home = '/root'
+    } else {
+      $home = "${ohmyzsh::home}/${name}"
+    }
   }
 
   vcsrepo { "${home}/.oh-my-zsh":
