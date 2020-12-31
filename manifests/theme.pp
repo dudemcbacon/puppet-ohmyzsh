@@ -22,15 +22,20 @@
 # Copyright 2014
 #
 define ohmyzsh::theme(
-  String $theme = 'clean',
+  String $custom_home_dir = '',
+  String $theme           = 'clean',
 ) {
 
   include ohmyzsh
 
-  if $name == 'root' {
-    $home = '/root'
+  if $custom_home_dir != '' {
+    $home = $custom_home_dir
   } else {
-    $home = "${ohmyzsh::home}/${name}"
+    if $name == 'root' {
+      $home = '/root'
+    } else {
+      $home = "${ohmyzsh::home}/${name}"
+    }
   }
 
   file_line { "${name}-${theme}-install":
