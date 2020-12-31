@@ -28,7 +28,7 @@ define ohmyzsh::install(
   Boolean $set_sh              = false,
   Boolean $disable_auto_update = false,
   Boolean $override_template   = false,
-  String  $custom_home_dir     = undef,
+  String  $custom_home_dir     = '',
 ) {
 
   include ohmyzsh
@@ -45,7 +45,7 @@ define ohmyzsh::install(
     }
   }
 
-  if $custom_home_dir {
+  if empty($custom_home_dir) {
     $home = $custom_home_dir
   } else {
     if $name == 'root' {
