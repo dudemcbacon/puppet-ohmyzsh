@@ -1,16 +1,21 @@
 define ohmyzsh::fetch::theme (
-  Optional[Stdlib::Httpurl] $url      = undef,
-  Optional[String]          $source   = undef,
-  Optional[String]          $content  = undef,
-  Optional[String]          $filename = undef,
+  Optional[Stdlib::Httpurl] $url             = undef,
+  Optional[String]          $source          = undef,
+  Optional[String]          $content         = undef,
+  Optional[String]          $filename        = undef,
+  Optional[String]          $custom_home_dir = '',
 ) {
 
   include ohmyzsh
 
-  if $name == 'root' {
-    $home = '/root'
+  if $custom_home_dir != '' {
+    $home = $custom_home_dir
   } else {
-    $home = "${ohmyzsh::home}/${name}"
+    if $name == 'root' {
+      $home = '/root'
+    } else {
+      $home = "${ohmyzsh::home}/${name}"
+    }
   }
 
   $themepath = "${home}/.oh-my-zsh/custom/themes"
