@@ -45,7 +45,7 @@ define ohmyzsh::install(
     }
   }
 
-  if empty($custom_home_dir) {
+  if $custom_home_dir != '' {
     $home = $custom_home_dir
   } else {
     if $name == 'root' {
